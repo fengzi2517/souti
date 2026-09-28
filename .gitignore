@@ -1,0 +1,41 @@
+# 环境变量与密钥（.env.example 除外）
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.pyc
+*.bak
+.venv/
+.pytest_cache/
+.pytest_cache*/
+.coverage
+htmlcov/
+
+# Node
+node_modules/
+dist/
+
+# 运行时产物与本地数据
+uploads/
+*.log
+*.tmp
+output/
+backups/
+
+# 本地调试产物
+backend/solve_test.json
+backend/qid.txt
+backend/test_question.png
+
+# 工具与本地工作目录
+.trae/
+.worktrees/
+.workbuddy/
+.superpowers/
+shots/
+
+# OS
+.DS_Store
+Thumbs.db

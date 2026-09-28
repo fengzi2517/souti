@@ -1,0 +1,4 @@
+# 开发/测试依赖
+-r requirements.txt
+pytest==9.1.1
+aiosqlite==0.22.1  # 测试用 SQLite 异步驱动

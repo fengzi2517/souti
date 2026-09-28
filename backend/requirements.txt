@@ -1,0 +1,14 @@
+# 运行时依赖：版本钉在当前验证过的组合（Python 3.13），升级请测试后整体更新
+fastapi==0.141.1
+uvicorn[standard]==0.52.4
+sqlalchemy[asyncio]==2.0.52
+asyncpg==0.31.0
+alembic==1.19.2
+redis==8.1.0
+pydantic==2.13.5
+pydantic-settings==2.15.0
+openai==3.8.0
+python-multipart==0.0.32
+httpx==0.28.1
+pillow==12.3.0
+pyjwt==2.13.0

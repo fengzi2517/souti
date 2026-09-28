@@ -1,0 +1,39 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: ai-solve-postgres
+    environment:
+      POSTGRES_USER: solve
+      # 生产环境：改用强密码（与 backend/.env 的 DATABASE_URL 一致），并通过 secrets 注入而非明文
+      POSTGRES_PASSWORD: solve123
+      POSTGRES_DB: ai_solve
+    ports:
+      # 只绑本机回环，避免 5434 对局域网裸奔；backend 在宿主机跑不受影响
+      - "127.0.0.1:5434:5432"
+    volumes:
+      - ai_solve_pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U solve -d ai_solve"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    container_name: ai_solve-redis
+    # 开发环境无密码直连；生产环境取消下面 command 注释并同步修改 REDIS_URL：
+    #   command: redis-server --requirepass <强密码> --rename-command FLUSHALL ""
+    ports:
+      # 只绑本机回环，避免 6379 对局域网裸奔（无密码 Redis 被扫到等于数据全丢）
+      - "127.0.0.1:6379:6379"
+    volumes:
+      - ai_solve_redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  ai_solve_pg_data:
+  ai_solve_redis_data:

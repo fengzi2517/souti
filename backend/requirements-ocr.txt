@@ -1,0 +1,13 @@
+# 图片识别（OCR）可选依赖。不装则图片入口提示改用文字输入，文字/变式/批改不受影响。
+# 安装：.venv\Scripts\python.exe -m pip install -r requirements-ocr.txt
+
+# 方案一（默认推荐）：RapidOCR —— onnxruntime CPU 推理，本机实测密集大图 ~6s（Paddle 同图 ~450s），
+# 模型 30MB 打包在包内、无外部缓存与下载。引擎选择见 .env 的 OCR_ENGINE（auto 时优先本方案）。
+rapidocr==3.9.2
+onnxruntime==1.29.0
+
+# 方案二（备选）：PaddleOCR —— 识别稍稳但 CPU 慢 1~2 个数量级；模型缓存 133MB 在
+# PADDLE_CACHE_DIR 指定目录（默认 D:\Users\3392\.paddlex）；本机 oneDNN 有 PIR bug 已强制关闭 MKLDNN。
+# 注意：两方案的 opencv 会互相覆盖 cv2 目录，已实测可共存（opencv 5.0 下 Paddle 正常）。
+paddleocr==3.3.3
+paddlepaddle==3.3.0
